@@ -98,6 +98,14 @@ namespace CPE200Lab1
             return "E";
         }
 
+        public virtual string percent(string firstOperand, string secondOperand, int maxOutputSize = 8)
+        {
+            double result, x, y;
+            x = Convert.ToDouble(firstOperand);
+            y = Convert.ToDouble(secondOperand);
+            result = x / 100 * y;
+            return Convert.ToString(result);
+        }
         public string calculate(string operate, string firstOperand, string secondOperand, int maxOutputSize = 8)
         {
             switch (operate)
@@ -117,6 +125,12 @@ namespace CPE200Lab1
                         int remainLength;
 
                         result = (Convert.ToDouble(firstOperand) / Convert.ToDouble(secondOperand));
+                        if((Convert.ToDouble(firstOperand) % Convert.ToDouble(secondOperand)) == 0)
+                        {
+                            return result.ToString();
+                        }
+                     
+                         
                         // split between integer part and fractional part
                         parts = result.ToString().Split('.');
                         // if integer part length is already break max output, return error
@@ -126,8 +140,9 @@ namespace CPE200Lab1
                         }
                         // calculate remaining space for fractional part.
                         remainLength = maxOutputSize - parts[0].Length - 1;
-                        // trim the fractional part gracefully. =
-                        return result.ToString("N" + remainLength);
+                        // trim the fractional part gracefully. = 
+                        result = Math.Round(result, 4);
+                        return result.ToString();
                     }
                     break;
                 case "%":
